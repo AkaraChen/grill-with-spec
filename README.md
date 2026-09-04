@@ -28,26 +28,24 @@ skills/
 
 ## Install
 
-### Cursor
-
-Install this repository as a plugin (Customize → Plugins, or a team marketplace import of the
-GitHub repo). Cursor discovers `skills/grill-with-spec` from the root `plugin.json`.
-
-Local development:
+Use the [skills CLI](https://github.com/vercel-labs/skills) to install `grill-with-spec` into your
+coding agent:
 
 ```bash
-ln -s /path/to/grill-with-spec ~/.cursor/plugins/local/grill-with-spec
+npx skills add AkaraChen/grill-with-spec
 ```
 
-Then reload the window and confirm the skill appears in Customize.
-
-### Any Agent Skills host
-
-Copy or symlink the skill directory into the host's skills root:
+The CLI detects installed agents and prompts for project vs global scope. Add `-g` for a user-wide
+install, or `-a` to target a specific agent:
 
 ```bash
-cp -r skills/grill-with-spec ~/.agents/skills/
+npx skills add AkaraChen/grill-with-spec -g
+npx skills add AkaraChen/grill-with-spec -a cursor
 ```
+
+In Cursor you can also install this repository as a plugin (Customize → Plugins, or a team
+marketplace import of the GitHub repo). Cursor discovers `skills/grill-with-spec` from the root
+`plugin.json`.
 
 The skill is a standard [Agent Skill](https://agentskills.io/specification) (`SKILL.md` +
 supporting files). Host-specific invocation is up to the client (`/grill-with-spec` in Cursor).
