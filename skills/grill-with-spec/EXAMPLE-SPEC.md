@@ -6,3 +6,9 @@ Apache License, Version 2.0, reproduced verbatim as a calibration reference for 
 and structure a finished spec should reach. It specifies a different system. Read its headings to
 calibrate; never copy its content into a spec for another system.
 -->
+
+# Symphony Service Specification
+
+Status: Draft v1 (language-agnostic)
+
+Purpose: Define a service that orchestrates coding agents to get project work done.
