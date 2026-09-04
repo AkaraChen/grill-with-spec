@@ -84,7 +84,7 @@ instead ("That logic lives in the workflow prompt and agent tooling.").
 ### 4. Core Domain Model (REQUIRED)
 
 - `4.1 Entities`: one `#### 4.1.N Name` per entity. Each field is a bullet:
-  `- \\`field\\` (type or null)` followed by indented bullets for REQUIRED/OPTIONAL, semantics,
+  `- \`field\` (type or null)` followed by indented bullets for REQUIRED/OPTIONAL, semantics,
   normalization, and what the core MUST NOT assume about it. Cover the internal runtime state as
   an entity too.
 - `4.2 Stable Identifiers and Normalization Rules`: for each identifier, what it is used for, what
