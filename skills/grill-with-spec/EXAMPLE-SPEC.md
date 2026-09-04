@@ -1,23 +1,46 @@
 <!--
-Exemplar for the grill-with-spec skill.
+Calibration reference for grill-with-spec.
 
-This is the SPEC.md of openai/symphony (https://github.com/openai/symphony), licensed under the
-Apache License, Version 2.0, reproduced verbatim as a calibration reference for the depth, tone,
-and structure a finished spec should reach. It specifies a different system. Read its headings to
-calibrate; never copy its content into a spec for another system.
+The finished-spec depth and tone to match is openai/symphony SPEC.md
+(https://github.com/openai/symphony/blob/main/SPEC.md), Apache License 2.0.
+That document specifies a different system and a particular coding-agent
+protocol. Skim its headings. Never copy its content into a spec for another
+system, and never treat its agent-specific names as defaults.
 -->
 
-# Symphony Service Specification
+# Example spec (calibration only)
 
-Status: Draft v1 (language-agnostic)
+Read the headings of [openai/symphony `SPEC.md`](https://github.com/openai/symphony/blob/main/SPEC.md)
+once, then write the new spec from [SPEC-FORMAT.md](SPEC-FORMAT.md).
 
-Purpose: Define a service that orchestrates coding agents to get project work done.
+That exemplar is language-agnostic in form and agent-specific in subject: it
+integrates one coding-agent protocol. A spec produced by this skill MUST stay
+agent-agnostic unless that agent is an actual external dependency of the system
+under spec.
 
-## Normative Language
+Heading map to match for depth (names will change per system):
 
-The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHOULD`, `SHOULD NOT`, `RECOMMENDED`, `MAY`, and
-`OPTIONAL` in this document are to be interpreted as described in RFC 2119.
-
-`Implementation-defined` means the behavior is part of the implementation contract, but this
-specification does not prescribe one universal policy. Implementations MUST document the selected
-behavior.
+```text
+# <System> Specification
+Status / Purpose
+Normative Language
+1. Problem Statement
+2. Goals and Non-Goals
+3. System Overview          (components, layers, external dependencies)
+4. Core Domain Model        (entities, identifiers, normalization)
+5. Primary Input Contract   (file/schema the user authors)
+6. Configuration            (resolution, reload, preflight, cheat sheet)
+7. State Machine
+8. Core Loop                (poll, eligibility, concurrency, retry, reconcile)
+9. Resource Management      (layout, hooks, safety invariants)
+10. External Protocol       (source of truth is the protocol, not this spec)
+11. Adapter Contract
+12. Derived Artifact Construction
+13. Observability
+14. Failure Model
+15. Security
+16. Reference Algorithms    (language-agnostic pseudocode)
+17. Test and Validation Matrix
+18. Definition of Done
+Appendix: OPTIONAL extensions
+```

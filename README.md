@@ -23,7 +23,7 @@ skills/
     ├── SKILL.md                    # interview protocol + inline spec-writing rules
     ├── SPEC-FORMAT.md              # section skeleton, per-section guidance, writing rules
     ├── QUESTION-BANK.md            # probing questions per spec section
-    └── EXAMPLE-SPEC.md             # complete exemplar spec (Symphony, Apache-2.0) for calibration
+    └── EXAMPLE-SPEC.md             # heading map + link to a full exemplar for calibration
 ```
 
 ## Install
