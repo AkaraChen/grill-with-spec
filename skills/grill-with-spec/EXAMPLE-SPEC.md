@@ -19,8 +19,9 @@ agent-agnostic unless that agent is an actual external dependency of the system
 under spec. It stays language-agnostic too unless the user named a target stack,
 in which case the same headings are filled with stack-specific detail.
 
-The exemplar is about 2300 lines at a 100-column wrap; the per-section line
-counts in SPEC-FORMAT.md are measured from it.
+The exemplar is about 2300 lines at a 100-column wrap; the "Exemplar" column in
+SPEC-FORMAT.md's Length section is measured from it. That is what its system
+needed, not a length to aim for. Estimate a new spec from its own minimum.
 
 Heading map to match for depth (names will change per system):
 

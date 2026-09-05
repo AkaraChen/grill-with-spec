@@ -2,8 +2,9 @@
 
 An [Agent Plugin](https://agent-plugins.org) (and Cursor plugin) that runs a relentless design
 interview and writes the result into a single `SPEC.md`: an RFC 2119-style specification that is
-**agent-agnostic** and, by default, **language-agnostic**. A human, or any coding agent, should be
-able to implement the system from the file alone.
+**agent-agnostic** and, by default, **language-agnostic**. The point is software that is
+**auditable** and **rebuildable**: the file holds the complete spec, so any implementation can be
+checked against it, and a human or any coding agent can rebuild the system from the file alone.
 
 Name a language or framework when you invoke the skill and the spec binds to it: file layout,
 framework mechanisms, typed entities, build and test commands, and reference code in that language
@@ -60,8 +61,9 @@ Invoke the skill by name, then describe the system you want to specify. The agen
 questions in rounds, each with a recommended answer, and updates `SPEC.md` after every round. When
 the host exposes an ask-user tool (Cursor's and Claude Code's question prompts, Codex's
 `request_user_input`), the questions arrive as a structured form with the recommended answer
-preselected; otherwise they are posted as Markdown. Each update reports the spec's length against
-the suggested line counts in `SPEC-FORMAT.md`. The session ends when the `## Open Questions`
+preselected; otherwise they are posted as Markdown. After round one the agent estimates the
+minimum complete length for your system and reports progress against it; the spec should be as
+long as a rebuild and an audit need, and no longer. The session ends when the `## Open Questions`
 section is empty and you confirm shared understanding.
 
 The skill has `disable-model-invocation: true` in hosts that honor that field, so it only runs

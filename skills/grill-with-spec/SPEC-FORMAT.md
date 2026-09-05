@@ -271,47 +271,67 @@ this section present is a draft by definition.
   behavior in a clearly labeled deprecated block if it must be mentioned. The `Target:` header
   line is the one place a minimum stack version may be stated.
 
-## Suggested length
+## Length
 
-Line counts assume prose hard-wrapped at 100 columns. They are calibrated from the exemplar in
-[EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) (about 2300 lines for a long-running orchestrator with one
-external protocol, one adapter family, and one appendix). They are a depth signal, not a quota:
-a section far under its range usually means a question was never asked; a section far over it
-usually means an external schema is being restated or an extension belongs in an appendix.
+The spec exists so that the software is **auditable** (every implementation can be checked against
+the file) and **rebuildable** (the system can be reconstructed from the file alone). The right
+length is therefore the **minimum that is complete**: the fewest lines that state every rule a
+rebuild needs and an audit can verify. Estimate from that minimum, not from the exemplar or from a
+typical spec; the exemplar is what a large system needed, not what every system should reach.
 
-Whole spec:
+### Estimating the minimum
 
-- Long-running system with an external protocol and adapters (daemon, orchestrator, service):
-  1500-2500 lines.
-- Library, SDK, or CLI with no long-lived state: 600-1200 lines.
-- A stack-bound spec (`Target:` set) runs about 10-20% longer than the same spec written
-  language-agnostic, because of file layout, framework mechanics, and typed reference code.
+Count what the system actually has, then add up the lines those things take to state once:
 
-Per section:
+- Per entity: a heading, one bullet per field with its type, and one line per constraint the core
+  relies on. Per stable identifier: use, non-use, derivation.
+- Per input or config field: type, default, validation, live-vs-restart. One line each if the
+  cheat sheet carries the summary.
+- Per state: one line. Per transition trigger: one line plus one per mutation.
+- Per adapter or protocol operation: a signature plus one line per contract bullet.
+- Per failure class: examples and recovery, two to four lines.
+- Per safety invariant: the statement and the check that enforces it.
+- Per normative statement: one test-matrix bullet.
+- Per core routine: one pseudocode block of the length its steps need.
+- Boilerplate (header, Normative Language, section headings): about 40 lines total.
 
-| Section                                 | Lines   | Notes                                        |
-| --------------------------------------- | ------- | -------------------------------------------- |
-| Header and Normative Language           | 10-15   | Boilerplate; do not grow.                    |
-| 1. Problem Statement                    | 20-40   | Boundary bullets are the bulk.               |
-| 2. Goals and Non-Goals                  | 20-30   |                                              |
-| 3. System Overview                      | 60-90   | Two to four bullets per component.           |
-| 4. Core Domain Model                    | 120-180 | One block per entity; identifiers ~30.       |
-| 5. Primary Input Contract               | 120-220 | Field-by-field schema dominates.             |
-| 6. Configuration Specification          | 80-120  | Cheat sheet is one line per field.           |
-| 7. State Machine                        | 70-100  |                                              |
-| 8. Core Loop                            | 90-130  | Retry and reconciliation are the long parts. |
-| 9. Resource Management and Safety       | 70-100  | Invariants ~20.                              |
-| 10. External Protocol Integration       | 120-230 | Longest when policy areas are enumerated.    |
-| 11. Adapter / Integration Contract      | 100-150 | Signatures plus contract bullets.            |
-| 12. Derived Artifact Construction       | 30-50   |                                              |
-| 13. Logging, Status, and Observability  | 100-150 | +100-130 with the OPTIONAL HTTP extension.   |
-| 14. Failure Model and Recovery Strategy | 60-90   |                                              |
-| 15. Security and Operational Safety     | 60-90   |                                              |
-| 16. Reference Algorithms                | 150-250 | One 20-50 line block per core routine.       |
-| 17. Test and Validation Matrix          | 100-160 | Scales with normative statements.            |
-| 18. Implementation Checklist            | 40-60   |                                              |
-| Appendix (each)                         | 40-80   |                                              |
-| Open Questions                          | 0       | Present only in drafts.                      |
+The sum is the estimated minimum for this system. Report it to the user after round one and revise
+it as scope changes. A section below its share of the estimate is missing something; a section far
+above it is restating an external protocol, repeating a rule already stated, or writing prose
+where a bullet would do. Add a line only when it carries a rule, a field, a check, an error, or an
+algorithm step.
 
-Sections marked `Not applicable` count as one line. For a library or CLI, Sections 7-11 shrink or
-collapse first; Sections 4, 5, 17, and 18 keep their ranges.
+### Reference points
+
+Two anchors, both at a 100-column wrap. The floor is the smallest a section usually is when it is
+complete for a system that needs that section at all; below it, look for a missing rule. The
+exemplar column is what [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md)'s system (a long-running orchestrator
+with one external protocol, one adapter family, and one appendix) needed, shown only so the floors
+have scale. A small library or CLI will sit near the floors and mark Sections 7-11
+`Not applicable`; nothing should be written to reach the exemplar.
+
+| Section                                 | Floor | Exemplar |
+| --------------------------------------- | ----- | -------- |
+| Header and Normative Language           | 10    | 12       |
+| 1. Problem Statement                    | 12    | 30       |
+| 2. Goals and Non-Goals                  | 10    | 25       |
+| 3. System Overview                      | 25    | 80       |
+| 4. Core Domain Model                    | 40    | 165      |
+| 5. Primary Input Contract               | 40    | 215      |
+| 6. Configuration Specification          | 30    | 100      |
+| 7. State Machine                        | 25    | 100      |
+| 8. Core Loop                            | 30    | 120      |
+| 9. Resource Management and Safety       | 25    | 100      |
+| 10. External Protocol Integration       | 40    | 230      |
+| 11. Adapter / Integration Contract      | 40    | 145      |
+| 12. Derived Artifact Construction       | 10    | 35       |
+| 13. Logging, Status, and Observability  | 30    | 275      |
+| 14. Failure Model and Recovery Strategy | 20    | 85       |
+| 15. Security and Operational Safety     | 20    | 80       |
+| 16. Reference Algorithms                | 40    | 250      |
+| 17. Test and Validation Matrix          | 30    | 155      |
+| 18. Implementation Checklist            | 15    | 50       |
+| Appendix (each)                         | 20    | 60       |
+
+A `Not applicable` section counts as one line. A `Target:` stack adds lines only where it states
+something a rebuild needs (layout, commands, typed fields); it does not raise the floors.

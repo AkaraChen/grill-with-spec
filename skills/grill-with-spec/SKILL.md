@@ -13,9 +13,11 @@ Two disciplines run together in one session:
 2. **Spec writing**: capture every settled decision in one `SPEC.md` the moment it settles, in the
    normative style defined in [SPEC-FORMAT.md](SPEC-FORMAT.md).
 
-The deliverable is `SPEC.md`, not the conversation. A reader who has never seen the chat, and who
-is using any coding agent or none at all, must be able to implement the system from the file
-alone.
+The deliverable is `SPEC.md`, not the conversation. Its purpose is software that is **auditable**
+and **rebuildable**: the file holds the complete specification of the system, so any
+implementation can be checked against it line by line, and the system can be rebuilt from the file
+alone, by a reader who has never seen the chat and who is using any coding agent or none at all.
+Completeness is the criterion; length is only its consequence.
 
 ## Before the first round
 
@@ -35,9 +37,13 @@ alone.
    not named one, the spec stays language-agnostic. When the repository has an obvious stack the
    user did not mention, do not infer it silently; ask in round one whether the spec should bind
    to it, and recommend binding when the spec is for this repository.
-6. Skim the headings of [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) once to calibrate depth and tone, and
-   note the suggested line counts in SPEC-FORMAT.md. It specifies a different system; never copy
-   its content into a new spec.
+6. Skim the headings of [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) once to calibrate depth and tone. It
+   specifies a different system; never copy its content into a new spec.
+7. Estimate the **minimum complete length** for this system, using the method in SPEC-FORMAT.md
+   ("Length"): count what the system actually has (entities, fields, operations, states,
+   failure classes, extensions) and sum the fewest lines that would state all of it. Tell the user
+   the estimate at the end of round one, and revise it whenever scope changes. It is a floor to
+   check completeness against, not a target to write up to.
 
 ## The interview
 
@@ -115,9 +121,9 @@ After each answered round, before asking the next:
    spot the text will go, and mirror it in `## Open Questions` at the end of the file.
 3. Remove `TBD` markers as they settle. Bump `Status: Draft vN` whenever a round changes normative
    content.
-4. Tell the user in one or two lines what changed, including the current length against the
-   suggested total from SPEC-FORMAT.md (`SPEC.md: added 4.1.7 Retry Entry, resolved TBD(Q7),
-   bumped to Draft v3; 640 lines, target 1500-2500`), then ask the next round.
+4. Tell the user in one or two lines what changed, including the current length against your
+   estimated minimum (`SPEC.md: added 4.1.7 Retry Entry, resolved TBD(Q7), bumped to Draft v3;
+   640 lines, estimated minimum ~900`), then ask the next round.
 
 Writing rules (full detail in SPEC-FORMAT.md):
 
@@ -134,9 +140,10 @@ Writing rules (full detail in SPEC-FORMAT.md):
 - Agent-agnostic: do not assume which coding agent, IDE, or plugin host will implement or operate
   the system. Name protocols and executables only when they are the system's actual external
   dependency. A reader using a different agent must still be able to implement the spec.
-- Length: use the per-section line counts in SPEC-FORMAT.md as a depth check. A section far under
-  its range usually hides an unasked question; a section far over it usually restates an external
-  protocol or belongs in an appendix.
+- Length: the spec is as long as a rebuild and an audit need, and no longer. Estimate from the
+  minimum (SPEC-FORMAT.md, "Length"). A section under its floor is usually missing a rule; a
+  section well over the estimate is usually restating an external protocol or padding with prose.
+  Every added line should be a rule, a field, a check, an error, or an algorithm step.
 - One canonical term per concept, defined once in the domain model and used everywhere after.
 - Separate REQUIRED core from OPTIONAL extensions. Extensions live in their own sections or
   appendices and MUST NOT be needed for core correctness.
@@ -149,8 +156,8 @@ The session is done when all of the following hold:
 
 - The frontier is empty and `## Open Questions` is empty (delete the section).
 - Every REQUIRED section of SPEC-FORMAT.md is present, or marked "Not applicable" with a reason.
-- Every section is within, or deliberately outside, its suggested line range, and you can say why
-  for each outlier.
+- The spec is complete enough to rebuild the system and audit an implementation: no section is
+  under its floor without a stated reason, and nothing is present that neither activity needs.
 - Every normative behavior in the body appears in the test matrix and the definition of done.
 - Terminology is consistent from the domain model through the reference algorithms.
 - The user confirms shared understanding.
