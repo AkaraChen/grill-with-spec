@@ -1,10 +1,11 @@
 # SPEC.md Format
 
 The spec is one Markdown file. Its shape is the one in [SYMPHONY-SPEC.md](SYMPHONY-SPEC.md) (see
-[EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) for how to read it), generalized. Section numbers below are the canonical order; rename a section to fit the system,
-merge two when one would be near-empty, but keep the order of concerns and keep the numbering
-continuous. A REQUIRED section that truly does not apply stays in the file as a one-line
-`Not applicable: <reason>` so a reader knows it was considered.
+[EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) for how to read it), generalized. Section numbers below are the
+canonical order; rename a section to fit the system, merge two when one would be near-empty, but
+keep the order of concerns and keep the numbering continuous. A REQUIRED section that truly does
+not apply stays in the file as a one-line `Not applicable: <reason>` so a reader knows it was
+considered.
 
 ## Skeleton
 
