@@ -38,7 +38,8 @@ Completeness is the criterion; length is only its consequence.
    user did not mention, do not infer it silently; ask in round one whether the spec should bind
    to it, and recommend binding when the spec is for this repository.
 6. Skim the headings of [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) once to calibrate depth and tone. It
-   specifies a different system; never copy its content into a new spec.
+   is bundled with the skill; read it locally, do not fetch anything. It specifies a different
+   system; never copy its content into a new spec.
 7. Estimate the **minimum complete length** for this system, using the method in SPEC-FORMAT.md
    ("Length"): count what the system actually has (entities, fields, operations, states,
    failure classes, extensions) and sum the fewest lines that would state all of it. Tell the user
@@ -169,4 +170,5 @@ confirms the spec.
 
 - [SPEC-FORMAT.md](SPEC-FORMAT.md): section skeleton, per-section guidance, and writing rules.
 - [QUESTION-BANK.md](QUESTION-BANK.md): probing questions per spec section.
-- [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md): a complete exemplar spec for calibrating depth and tone.
+- [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md): a complete exemplar spec (openai/symphony, Apache-2.0,
+  bundled) for calibrating depth and tone.

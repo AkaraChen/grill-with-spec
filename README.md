@@ -28,8 +28,11 @@ skills/
     ├── SKILL.md                    # interview protocol + inline spec-writing rules
     ├── SPEC-FORMAT.md              # section skeleton, per-section guidance, writing rules
     ├── QUESTION-BANK.md            # probing questions per spec section
-    └── EXAMPLE-SPEC.md             # heading map + link to a full exemplar for calibration
+    ├── EXAMPLE-SPEC.md             # complete exemplar spec (openai/symphony, Apache-2.0), bundled
+    └── EXAMPLE-SPEC.LICENSE        # Apache-2.0 license and NOTICE for the exemplar
 ```
+
+The exemplar is bundled so the skill works offline; the agent never has to fetch it.
 
 ## Install
 
