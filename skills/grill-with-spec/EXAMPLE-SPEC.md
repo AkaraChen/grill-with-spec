@@ -1,24 +1,36 @@
-<!--
-Calibration reference for grill-with-spec.
-
-The finished-spec depth and tone to match is openai/symphony SPEC.md
-(https://github.com/openai/symphony/blob/main/SPEC.md), Apache License 2.0.
-That document specifies a different system and a particular coding-agent
-protocol. Skim its headings. Never copy its content into a spec for another
-system, and never treat its agent-specific names as defaults.
--->
-
 # Example spec (calibration only)
 
-Read the headings of [openai/symphony `SPEC.md`](https://github.com/openai/symphony/blob/main/SPEC.md)
-once, then write the new spec from [SPEC-FORMAT.md](SPEC-FORMAT.md).
+The exemplar for depth, tone, and structure is [SYMPHONY-SPEC.md](SYMPHONY-SPEC.md), a verbatim,
+bundled copy of openai/symphony's `SPEC.md` (Apache-2.0; license and NOTICE in
+[SYMPHONY-SPEC.LICENSE](SYMPHONY-SPEC.LICENSE)). It ships with the skill so it can be read locally;
+never fetch it.
 
-That exemplar is language-agnostic in form and agent-specific in subject: it
-integrates one coding-agent protocol. A spec produced by this skill MUST stay
-agent-agnostic unless that agent is an actual external dependency of the system
-under spec.
+Skim its headings once, then write the new spec from [SPEC-FORMAT.md](SPEC-FORMAT.md).
 
-Heading map to match for depth (names will change per system):
+## What to take from it
+
+- The shape: how a section moves from prose to numbered rules to cheat sheets, how entities are
+  laid out field by field, how every normative statement reappears in the test matrix.
+- The tone: `MUST`/`SHOULD`/`MAY` prose, `Implementation-defined` paired with a duty to document,
+  `Note:` and `Important nuance:` blocks for the reasoning a reader would otherwise get wrong.
+- The scale: about 2300 lines at a 100-column wrap for a long-running orchestrator with one
+  external protocol, one adapter family, and one appendix. The "Exemplar" column in
+  SPEC-FORMAT.md's Length section is measured from it.
+
+## What not to take from it
+
+- Its content. It specifies a different system. Never copy its rules, entities, or defaults into a
+  spec for another system.
+- Its agent. It is language-agnostic in form but agent-specific in subject: it integrates one
+  particular coding-agent protocol. A spec produced by this skill stays agent-agnostic unless that
+  agent is an actual external dependency of the system under spec, and language-agnostic unless the
+  user named a target stack.
+- Its length. That is what its system needed, not a length to aim for. Estimate a new spec from
+  its own minimum (SPEC-FORMAT.md, "Length").
+
+## Heading map
+
+Names will change per system; the order of concerns should not.
 
 ```text
 # <System> Specification
@@ -39,7 +51,7 @@ Normative Language
 13. Observability
 14. Failure Model
 15. Security
-16. Reference Algorithms    (language-agnostic pseudocode)
+16. Reference Algorithms    (language-agnostic pseudocode, or target-language sketches)
 17. Test and Validation Matrix
 18. Definition of Done
 Appendix: OPTIONAL extensions

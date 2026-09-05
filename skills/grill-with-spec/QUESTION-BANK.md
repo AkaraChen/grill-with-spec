@@ -17,6 +17,23 @@ until the groups it depends on are settled.
   mandate one safety posture or let implementations document theirs?
 - Which adjacent features are tempting but out of scope (multi-tenancy, dashboards, generic
   workflow engine, persistence)?
+- Is there a target language, framework, or runtime, or must the spec stay implementable in any
+  language? (Ask only when the user has not said; recommend binding when the spec is for an
+  existing repository with an obvious stack.) If bound: which frameworks and libraries are
+  already decided, and which are open for the interview to settle?
+
+## Target stack (only when `Target:` is set)
+
+- Which framework mechanisms does the system commit to (routing, middleware, dependency
+  injection, ORM, job scheduler, test runner), and which does it deliberately avoid?
+- What is the package or module layout, and which module owns each component from Section 3?
+- Which standard-library or framework types carry the domain entities (structs, classes,
+  schemas, ORM models), and which fields are typed differently from their wire form?
+- What are the build, run, and test commands the definition of done will point at?
+- Which of the framework's conventions (config loading, env handling, logging) replace a rule the
+  spec would otherwise have to write, and which rules still need stating because the framework
+  leaves them open?
+- Is there a minimum language or framework version, and what feature requires it?
 
 ## Components and layers (Section 3)
 

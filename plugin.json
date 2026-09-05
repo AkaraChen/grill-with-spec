@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "grill-with-spec",
   "version": "1.0.0",
-  "description": "Relentless design interview that writes a single RFC 2119-style SPEC.md. Language-agnostic and agent-agnostic: any coding agent can implement the resulting spec.",
+  "description": "Relentless design interview that writes a single RFC 2119-style SPEC.md. Agent-agnostic, and language-agnostic unless you name a stack: any coding agent can implement the resulting spec.",
   "author": {
     "name": "AkaraChen",
     "url": "https://github.com/AkaraChen"

@@ -1,7 +1,7 @@
 {
   "name": "grill-with-spec",
   "version": "1.0.0",
-  "description": "Relentless design interview that writes a single RFC 2119-style SPEC.md. Language-agnostic and agent-agnostic.",
+  "description": "Relentless design interview that writes a single RFC 2119-style SPEC.md. Agent-agnostic, and language-agnostic unless you name a stack.",
   "author": {
     "name": "AkaraChen",
     "url": "https://github.com/AkaraChen"

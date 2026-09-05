@@ -1,10 +1,11 @@
 # SPEC.md Format
 
-The spec is one Markdown file. Its shape is the one in [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md),
-generalized. Section numbers below are the canonical order; rename a section to fit the system,
-merge two when one would be near-empty, but keep the order of concerns and keep the numbering
-continuous. A REQUIRED section that truly does not apply stays in the file as a one-line
-`Not applicable: <reason>` so a reader knows it was considered.
+The spec is one Markdown file. Its shape is the one in [SYMPHONY-SPEC.md](SYMPHONY-SPEC.md) (see
+[EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) for how to read it), generalized. Section numbers below are the
+canonical order; rename a section to fit the system, merge two when one would be near-empty, but
+keep the order of concerns and keep the numbering continuous. A REQUIRED section that truly does
+not apply stays in the file as a one-line `Not applicable: <reason>` so a reader knows it was
+considered.
 
 ## Skeleton
 
@@ -12,6 +13,7 @@ continuous. A REQUIRED section that truly does not apply stays in the file as a 
 # <System> Specification
 
 Status: Draft v1 (language-agnostic, agent-agnostic)
+Target: <language>, <framework> (only when the user named a stack; then drop "language-agnostic")
 
 Purpose: <one sentence: what the system does and for whom>.
 
@@ -31,7 +33,7 @@ Purpose: <one sentence: what the system does and for whom>.
 ## 13. Logging, Status, and Observability
 ## 14. Failure Model and Recovery Strategy
 ## 15. Security and Operational Safety
-## 16. Reference Algorithms (Language-Agnostic)
+## 16. Reference Algorithms (Language-Agnostic, or Reference Implementation Sketches)
 ## 17. Test and Validation Matrix
 ## 18. Implementation Checklist (Definition of Done)
 ## Appendix A. <Extension> (OPTIONAL)
@@ -43,7 +45,10 @@ Purpose: <one sentence: what the system does and for whom>.
 ### Header (REQUIRED)
 
 - `Status: Draft vN (language-agnostic, agent-agnostic)`. Bump `N` whenever normative content
-  changes.
+  changes. When the spec binds to a stack, write `Status: Draft vN (agent-agnostic)` instead.
+- `Target:` present only when the user named a language, framework, or runtime. List exactly what
+  the user named (`Target: TypeScript, Next.js App Router`). A minimum language or framework
+  version MAY appear here and nowhere else.
 - `Purpose:` one sentence.
 
 ### Normative Language (REQUIRED, boilerplate)
@@ -200,6 +205,10 @@ One `text` fenced pseudocode block per core routine (startup, cycle, reconcile, 
 worker attempt, exit and retry handling). Use the entity and predicate names from Sections 4 and
 8 exactly. Pseudocode is illustrative; normative text lives in the sections above.
 
+When a `Target:` stack is set, these blocks MAY be written in the target language, fenced with its
+language tag, using the framework's real types and APIs. They stay illustrative: a sketch a reader
+can start from, not a listing to paste.
+
 ### 17. Test and Validation Matrix (REQUIRED)
 
 - Define validation profiles: `Core Conformance` (REQUIRED, deterministic),
@@ -232,9 +241,22 @@ this section present is a draft by definition.
 - Keywords: `MUST`, `SHOULD`, `MAY`, `REQUIRED`, `OPTIONAL`, `RECOMMENDED` in capitals, in
   backticks only inside the Normative Language section. Prefer `MUST NOT` over "never".
 - Every `Implementation-defined` behavior is paired with a duty to document the chosen behavior.
-- Language-agnostic: no file paths, library or framework names, or source code in an
+- Language-agnostic by default: no file paths, library or framework names, or source code in an
   implementation language. Backticked identifiers name concepts (`issue.identifier`,
   `hooks.timeout_ms`), not code.
+- Stack-bound when the header has a `Target:` line. Then the spec SHOULD use the named stack
+  wherever it makes the contract more precise: framework mechanisms (middleware, hooks, DI,
+  routing conventions), standard-library and framework types in field definitions, package and
+  module layout, file paths, build and test commands, and reference code in Section 16. Rules that
+  still hold:
+  - Only the language and frameworks the user named are assumed. Any further library is a design
+    decision: settle it in the interview before it appears in the spec, and mark it OPTIONAL if
+    the system is correct without it.
+  - State behavior first, binding second: "The server MUST reject unknown keys with a 400.
+    (Next.js: a Route Handler returning `NextResponse.json(..., { status: 400 })`.)" The reader
+    can always see what is required versus how the stack meets it.
+  - Concept identifiers stay generic (`issue.identifier`); stack identifiers name real code
+    (`src/core/scheduler.ts`, `tokio::select!`). Do not blur the two.
 - Agent-agnostic: do not name a coding-agent product, IDE, or plugin host unless that product is
   itself an external dependency of the system under spec. The spec is for any implementor.
 - Numbers are exact and unit-suffixed in the key name (`interval_ms`, `timeout_ms`). Defaults are
@@ -247,4 +269,70 @@ this section present is a draft by definition.
 - Cross-reference by section number ("using Section 4.2"), never by page or by "above".
 - Hard-wrap prose at 100 columns for reviewable diffs.
 - No dates, version numbers of external tools, or "currently" in normative text. Put legacy
-  behavior in a clearly labeled deprecated block if it must be mentioned.
+  behavior in a clearly labeled deprecated block if it must be mentioned. The `Target:` header
+  line is the one place a minimum stack version may be stated.
+
+## Length
+
+The spec exists so that the software is **auditable** (every implementation can be checked against
+the file) and **rebuildable** (the system can be reconstructed from the file alone). The right
+length is therefore the **minimum that is complete**: the fewest lines that state every rule a
+rebuild needs and an audit can verify. Estimate from that minimum, not from the exemplar or from a
+typical spec; the exemplar is what a large system needed, not what every system should reach.
+
+### Estimating the minimum
+
+Count what the system actually has, then add up the lines those things take to state once:
+
+- Per entity: a heading, one bullet per field with its type, and one line per constraint the core
+  relies on. Per stable identifier: use, non-use, derivation.
+- Per input or config field: type, default, validation, live-vs-restart. One line each if the
+  cheat sheet carries the summary.
+- Per state: one line. Per transition trigger: one line plus one per mutation.
+- Per adapter or protocol operation: a signature plus one line per contract bullet.
+- Per failure class: examples and recovery, two to four lines.
+- Per safety invariant: the statement and the check that enforces it.
+- Per normative statement: one test-matrix bullet.
+- Per core routine: one pseudocode block of the length its steps need.
+- Boilerplate (header, Normative Language, section headings): about 40 lines total.
+
+The sum is the estimated minimum for this system. Report it to the user after round one and revise
+it as scope changes. A section below its share of the estimate is missing something; a section far
+above it is restating an external protocol, repeating a rule already stated, or writing prose
+where a bullet would do. Add a line only when it carries a rule, a field, a check, an error, or an
+algorithm step.
+
+### Reference points
+
+Two anchors, both at a 100-column wrap. The floor is the smallest a section usually is when it is
+complete for a system that needs that section at all; below it, look for a missing rule. The
+exemplar column is what [SYMPHONY-SPEC.md](SYMPHONY-SPEC.md)'s system (a long-running orchestrator
+with one external protocol, one adapter family, and one appendix) needed, shown only so the floors
+have scale. A small library or CLI will sit near the floors and mark Sections 7-11
+`Not applicable`; nothing should be written to reach the exemplar.
+
+| Section                                 | Floor | Exemplar |
+| --------------------------------------- | ----- | -------- |
+| Header and Normative Language           | 10    | 12       |
+| 1. Problem Statement                    | 12    | 30       |
+| 2. Goals and Non-Goals                  | 10    | 25       |
+| 3. System Overview                      | 25    | 80       |
+| 4. Core Domain Model                    | 40    | 165      |
+| 5. Primary Input Contract               | 40    | 215      |
+| 6. Configuration Specification          | 30    | 100      |
+| 7. State Machine                        | 25    | 100      |
+| 8. Core Loop                            | 30    | 120      |
+| 9. Resource Management and Safety       | 25    | 100      |
+| 10. External Protocol Integration       | 40    | 230      |
+| 11. Adapter / Integration Contract      | 40    | 145      |
+| 12. Derived Artifact Construction       | 10    | 35       |
+| 13. Logging, Status, and Observability  | 30    | 275      |
+| 14. Failure Model and Recovery Strategy | 20    | 85       |
+| 15. Security and Operational Safety     | 20    | 80       |
+| 16. Reference Algorithms                | 40    | 250      |
+| 17. Test and Validation Matrix          | 30    | 155      |
+| 18. Implementation Checklist            | 15    | 50       |
+| Appendix (each)                         | 20    | 60       |
+
+A `Not applicable` section counts as one line. A `Target:` stack adds lines only where it states
+something a rebuild needs (layout, commands, typed fields); it does not raise the floors.
