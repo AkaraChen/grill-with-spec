@@ -1,7 +1,7 @@
 # SPEC.md Format
 
-The spec is one Markdown file. Its shape is the one in [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md),
-generalized. Section numbers below are the canonical order; rename a section to fit the system,
+The spec is one Markdown file. Its shape is the one in [SYMPHONY-SPEC.md](SYMPHONY-SPEC.md) (see
+[EXAMPLE-SPEC.md](EXAMPLE-SPEC.md) for how to read it), generalized. Section numbers below are the canonical order; rename a section to fit the system,
 merge two when one would be near-empty, but keep the order of concerns and keep the numbering
 continuous. A REQUIRED section that truly does not apply stays in the file as a one-line
 `Not applicable: <reason>` so a reader knows it was considered.
@@ -305,7 +305,7 @@ algorithm step.
 
 Two anchors, both at a 100-column wrap. The floor is the smallest a section usually is when it is
 complete for a system that needs that section at all; below it, look for a missing rule. The
-exemplar column is what [EXAMPLE-SPEC.md](EXAMPLE-SPEC.md)'s system (a long-running orchestrator
+exemplar column is what [SYMPHONY-SPEC.md](SYMPHONY-SPEC.md)'s system (a long-running orchestrator
 with one external protocol, one adapter family, and one appendix) needed, shown only so the floors
 have scale. A small library or CLI will sit near the floors and mark Sections 7-11
 `Not applicable`; nothing should be written to reach the exemplar.

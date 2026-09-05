@@ -20,8 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-`skills/grill-with-spec/EXAMPLE-SPEC.md` reproduces the SPEC.md of
+`skills/grill-with-spec/SYMPHONY-SPEC.md` reproduces the SPEC.md of
 openai/symphony (https://github.com/openai/symphony), Copyright 2025 OpenAI,
 under the Apache License, Version 2.0. The MIT terms above do not apply to that
 file; its license and the upstream NOTICE are in
-`skills/grill-with-spec/EXAMPLE-SPEC.LICENSE`.
+`skills/grill-with-spec/SYMPHONY-SPEC.LICENSE`.
