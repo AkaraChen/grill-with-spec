@@ -2,8 +2,12 @@
 
 An [Agent Plugin](https://agent-plugins.org) (and Cursor plugin) that runs a relentless design
 interview and writes the result into a single `SPEC.md`: an RFC 2119-style specification that is
-**language-agnostic** and **agent-agnostic**. A human, or any coding agent, should be able to
-implement the system from the file alone.
+**agent-agnostic** and, by default, **language-agnostic**. A human, or any coding agent, should be
+able to implement the system from the file alone.
+
+Name a language or framework when you invoke the skill and the spec binds to it: file layout,
+framework mechanisms, typed entities, build and test commands, and reference code in that language
+are all fair game. Leave the stack unnamed and the spec stays implementable in any language.
 
 It follows the same interview pattern as
 [`grill-with-docs`](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs)
@@ -53,8 +57,12 @@ supporting files). Host-specific invocation is up to the client (`/grill-with-sp
 ## Use
 
 Invoke the skill by name, then describe the system you want to specify. The agent asks numbered
-questions in rounds, each with a recommended answer, and updates `SPEC.md` after every round. The
-session ends when the `## Open Questions` section is empty and you confirm shared understanding.
+questions in rounds, each with a recommended answer, and updates `SPEC.md` after every round. When
+the host exposes an ask-user tool (Cursor's and Claude Code's question prompts, Codex's
+`request_user_input`), the questions arrive as a structured form with the recommended answer
+preselected; otherwise they are posted as Markdown. Each update reports the spec's length against
+the suggested line counts in `SPEC-FORMAT.md`. The session ends when the `## Open Questions`
+section is empty and you confirm shared understanding.
 
 The skill has `disable-model-invocation: true` in hosts that honor that field, so it only runs
 when you name it.

@@ -16,7 +16,11 @@ once, then write the new spec from [SPEC-FORMAT.md](SPEC-FORMAT.md).
 That exemplar is language-agnostic in form and agent-specific in subject: it
 integrates one coding-agent protocol. A spec produced by this skill MUST stay
 agent-agnostic unless that agent is an actual external dependency of the system
-under spec.
+under spec. It stays language-agnostic too unless the user named a target stack,
+in which case the same headings are filled with stack-specific detail.
+
+The exemplar is about 2300 lines at a 100-column wrap; the per-section line
+counts in SPEC-FORMAT.md are measured from it.
 
 Heading map to match for depth (names will change per system):
 
