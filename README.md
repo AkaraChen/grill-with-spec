@@ -10,6 +10,10 @@ Name a language or framework when you invoke the skill and the spec binds to it:
 framework mechanisms, typed entities, build and test commands, and reference code in that language
 are all fair game. Leave the stack unnamed and the spec stays implementable in any language.
 
+For user-facing systems, the spec defines capabilities, workflows, permissions, validation, and
+observable outcomes. It does not list what belongs on every page or prescribe screen layouts and
+component inventories; page composition and visual design remain implementation choices.
+
 It follows the same interview pattern as
 [`grill-with-docs`](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs)
 (design tree, rounds, frontier, recommended answers), but the deliverable is one spec file, not a

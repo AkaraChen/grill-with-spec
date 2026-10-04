@@ -238,6 +238,32 @@ this section present is a draft by definition.
 
 ## Writing rules
 
+### User-facing systems
+
+Specify capabilities and workflows: actor, intent, inputs, permissions, validation, state changes,
+observable outcomes, and failure or recovery behavior. Group these rules by domain capability,
+even when a workflow crosses several screens.
+
+Do not add a page catalog, screen-by-screen content list, wireframe description, or inventory of
+buttons, cards, tables, and other visual components. Page composition, navigation placement, and
+visual styling are implementation choices. A named frontend framework does not require a route
+catalog or a component tree in the spec.
+
+Keep interaction requirements that affect correctness or usability, such as accessible operation,
+confirmation before destructive actions, validation feedback, and preservation of unsaved input.
+Specify a URL only when it is part of a required external contract, such as a callback or shared
+deep link; do not expand it into a description of the destination page.
+
+For example, write "An owner MUST be able to invite a member by email; duplicate pending
+invitations MUST be rejected without sending another email." Do not write "The Members page
+contains an email input, an Invite button, and a pending-invitations table."
+
+When revising an existing spec, replace page inventories with their underlying behavioral rules,
+preserving settled permissions, validation, and outcomes. UI composition does not count toward
+the completeness or length estimate, and tests should verify outcomes rather than a page inventory.
+
+### General rules
+
 - Keywords: `MUST`, `SHOULD`, `MAY`, `REQUIRED`, `OPTIONAL`, `RECOMMENDED` in capitals, in
   backticks only inside the Normative Language section. Prefer `MUST NOT` over "never".
 - Every `Implementation-defined` behavior is paired with a duty to document the chosen behavior.
