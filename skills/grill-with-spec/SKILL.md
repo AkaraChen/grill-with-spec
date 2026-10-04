@@ -18,6 +18,8 @@ and **rebuildable**: the file holds the complete specification of the system, so
 implementation can be checked against it line by line, and the system can be rebuilt from the file
 alone, by a reader who has never seen the chat and who is using any coding agent or none at all.
 Completeness is the criterion; length is only its consequence.
+Completeness covers system behavior and contracts, not a reproduction of every screen. Do not
+write page-by-page inventories of content, controls, components, or layout.
 
 ## Before the first round
 
@@ -98,6 +100,8 @@ the tool allows (a long scenario, a table, a diagram). Format a Markdown round l
   lower section belongs to a later round if the sections it depends on are still open.
 - Draw questions from [QUESTION-BANK.md](QUESTION-BANK.md) and adapt them to the system. Do not
   recite the bank; skip questions the facts already answer.
+- For user-facing systems, ask about user goals, workflows, permissions, validation, and outcomes.
+  Do not ask what belongs on each page or turn the interview into a screen-design walkthrough.
 - A question whose answer depends on another question still open in this round belongs to a later
   round.
 - When a frontier question needs a fact from the environment, look it up (or dispatch a helper
@@ -142,6 +146,10 @@ Writing rules (full detail in SPEC-FORMAT.md):
 - Agent-agnostic: do not assume which coding agent, IDE, or plugin host will implement or operate
   the system. Name protocols and executables only when they are the system's actual external
   dependency. A reader using a different agent must still be able to implement the spec.
+- Organize user-facing requirements by capability and workflow, not by page or route. Preserve
+  observable behavior and necessary interaction constraints; leave page composition and visual
+  design to implementation. Naming a frontend stack does not change this boundary. See
+  SPEC-FORMAT.md, "User-facing systems".
 - Length: the spec is as long as a rebuild and an audit need, and no longer. Estimate from the
   minimum (SPEC-FORMAT.md, "Length"). A section under its floor is usually missing a rule; a
   section well over the estimate is usually restating an external protocol or padding with prose.
@@ -162,6 +170,7 @@ The session is done when all of the following hold:
   under its floor without a stated reason, and nothing is present that neither activity needs.
 - Every normative behavior in the body appears in the test matrix and the definition of done.
 - Terminology is consistent from the domain model through the reference algorithms.
+- User-facing requirements describe behavior, with no page-by-page content or layout inventory.
 - The user confirms shared understanding.
 
 Do not start implementing. Offer follow-ups (tickets, ADRs, a prototype) only after the user

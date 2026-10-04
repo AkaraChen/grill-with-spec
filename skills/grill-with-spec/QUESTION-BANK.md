@@ -4,6 +4,16 @@ Probing questions per spec section. Adapt wording to the system; skip anything t
 answer; always attach a recommended answer. A question in a later group belongs to a later round
 until the groups it depends on are settled.
 
+For user-facing systems, probe capabilities and workflows rather than asking what each page
+contains. Use these questions in the relevant domain, state-machine, failure, or test section:
+
+- What goal must each actor accomplish, and what inputs and permissions does it require?
+- What state changes on success, and what observable outcome confirms it?
+- What happens on invalid input, denied access, interruption, or retry? Is user input preserved?
+- Which interaction constraints are required for safe and accessible use, independent of layout?
+
+Do not derive a page list, component inventory, or screen-layout interview from these answers.
+
 ## Identity and boundary (Sections 1, 2)
 
 - In one sentence, what does the system do, and what kind of thing is it (daemon, CLI, library,
